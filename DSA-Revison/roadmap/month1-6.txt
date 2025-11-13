@@ -1,0 +1,242 @@
+Perfect! I can give you a **single-file, copy-paste-ready version** of the full DSA Master Cheat Sheet with **all months, theory + minimal code + examples**, so you can paste it into Word and export directly as a PDF.
+
+Here it is:
+
+---
+
+# **DSA Master Cheat Sheet — R4K**
+
+---
+
+## **Table of Contents**
+
+1. Month 1: Arrays & Strings
+2. Month 2: Linked Lists & Stacks/Queues
+3. Month 3: Trees
+4. Month 4: Graphs & Heaps
+5. Month 5: Intervals & Advanced Patterns
+6. Month 6: Dynamic Programming (DP)
+
+---
+
+## **Month 1: Arrays & Strings**
+
+**Arrays:** Two pointers, sliding window, prefix sums, subarrays, sorting.
+**Strings:** Hashing, palindrome, substring search, two pointers.
+
+**Java Code Templates:**
+
+**Two Pointers**
+
+```java
+int left = 0, right = nums.length - 1;
+while (left < right) {
+    int sum = nums[left] + nums[right];
+    if (sum == target) break;
+    else if (sum < target) left++;
+    else right--;
+}
+```
+
+**Prefix Sum**
+
+```java
+int[] prefix = new int[nums.length + 1];
+prefix[0] = 0;
+for(int i = 0; i < nums.length; i++) {
+    prefix[i + 1] = prefix[i] + nums[i];
+}
+int sumRange = prefix[end + 1] - prefix[start];
+```
+
+**Example Problems:** Two Sum II, Maximum Subarray, Sliding Window Maximum, Longest Substring Without Repeating Characters.
+
+---
+
+## **Month 2: Linked Lists & Stacks/Queues**
+
+**Linked Lists:** Fast & slow pointers, reversal, merge/intersection.
+**Stacks/Queues:** Monotonic stack, min/max stack, queue simulation.
+
+**Reverse Linked List**
+
+```java
+ListNode prev = null, curr = head;
+while(curr != null) {
+    ListNode next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+}
+return prev;
+```
+
+**Stack Example**
+
+```java
+Stack<Integer> stack = new Stack<>();
+stack.push(1);
+int top = stack.peek();
+stack.pop();
+```
+
+**Queue Example**
+
+```java
+Queue<Integer> queue = new LinkedList<>();
+queue.add(1);
+int front = queue.poll();
+```
+
+**Example Problems:** Valid Parentheses, Min Stack, Sliding Window Maximum.
+
+---
+
+## **Month 3: Trees**
+
+**Concepts:** BFS, DFS, recursion, binary search tree, tree diameter, lowest common ancestor.
+
+**DFS Traversal**
+
+```java
+void dfs(TreeNode node) {
+    if(node == null) return;
+    System.out.println(node.val);
+    dfs(node.left);
+    dfs(node.right);
+}
+```
+
+**BFS Traversal**
+
+```java
+Queue<TreeNode> queue = new LinkedList<>();
+queue.add(root);
+while(!queue.isEmpty()) {
+    TreeNode node = queue.poll();
+    System.out.println(node.val);
+    if(node.left != null) queue.add(node.left);
+    if(node.right != null) queue.add(node.right);
+}
+```
+
+**Example Problems:** Binary Tree Level Order Traversal, Maximum Depth, Lowest Common Ancestor.
+
+---
+
+## **Month 4: Graphs & Heaps**
+
+**Graphs:** BFS, DFS, topological sort, shortest path, cycle detection, connected components.
+**Heaps:** Min-heap, max-heap, heap applications.
+
+**Graph BFS**
+
+```java
+Queue<Integer> queue = new LinkedList<>();
+queue.add(start);
+boolean[] visited = new boolean[n];
+visited[start] = true;
+while(!queue.isEmpty()) {
+    int node = queue.poll();
+    for(int nei : graph[node]) {
+        if(!visited[nei]) {
+            visited[nei] = true;
+            queue.add(nei);
+        }
+    }
+}
+```
+
+**Min Heap / Max Heap**
+
+```java
+PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+```
+
+**Example Problems:** Kth Largest Element, Top K Frequent Elements, Dijkstra, Cycle Detection.
+
+---
+
+## **Month 5: Intervals & Advanced Patterns**
+
+**Intervals:** Merge intervals, sweep line.
+**Greedy:** Activity selection, scheduling.
+**Bit Manipulation & Backtracking Basics.**
+
+**Merge Intervals**
+
+```java
+Arrays.sort(intervals, (a,b) -> a[0]-b[0]);
+List<int[]> merged = new ArrayList<>();
+for(int[] interval : intervals) {
+    if(merged.isEmpty() || merged.get(merged.size()-1)[1] < interval[0]) {
+        merged.add(interval);
+    } else {
+        merged.get(merged.size()-1)[1] = Math.max(merged.get(merged.size()-1)[1], interval[1]);
+    }
+}
+```
+
+**Backtracking Template**
+
+```java
+void backtrack(List<List<Integer>> res, List<Integer> temp, int start, int[] nums) {
+    res.add(new ArrayList<>(temp));
+    for(int i = start; i < nums.length; i++) {
+        temp.add(nums[i]);
+        backtrack(res, temp, i+1, nums);
+        temp.remove(temp.size()-1);
+    }
+}
+```
+
+**Example Problems:** Merge Intervals, Subsets, Combinations, Activity Selection.
+
+---
+
+## **Month 6: Dynamic Programming (DP)**
+
+**Concepts:** 1D/2D DP, subsequence/substring, knapsack, state compression, DP on trees.
+
+**1D DP Example**
+
+```java
+int[] dp = new int[n+1];
+dp[0] = 0;
+for(int i = 1; i <= n; i++) {
+    dp[i] = Math.max(dp[i-1], nums[i-1] + (i-2 >= 0 ? dp[i-2] : 0));
+}
+```
+
+**2D DP Example**
+
+```java
+int[][] dp = new int[m+1][n+1];
+for(int i = 1; i <= m; i++) {
+    for(int j = 1; j <= n; j++) {
+        if(s1.charAt(i-1) == s2.charAt(j-1)) 
+            dp[i][j] = 1 + dp[i-1][j-1];
+        else 
+            dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+    }
+}
+```
+
+**Example Problems:** Fibonacci, House Robber, Longest Increasing Subsequence, Knapsack, Unique Paths.
+
+---
+
+### **Instructions for Word & PDF:**
+
+1. Copy the entire content above.
+2. Paste into **Microsoft Word** or **Google Docs**.
+3. Set **Page Layout → Widescreen (16:9)** for slides-like view.
+4. Apply **Heading styles** to months for clickable Table of Contents.
+5. Export as **PDF**.
+
+---
+
+If you want, I can also **generate a ready-to-download PDF** from this content so you don’t even have to copy-paste.
+
+Do you want me to generate that PDF?
